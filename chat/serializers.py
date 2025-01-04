@@ -6,7 +6,7 @@ class MessageSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Message
-        fields = ['id', 'conversation', 'question', 'answer']
+        fields = ['id', 'question', 'answer']
 
 
 class ConversationSerializer(serializers.ModelSerializer):
