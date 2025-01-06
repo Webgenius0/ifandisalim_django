@@ -32,6 +32,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",  # before django.contrib.admin
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms",  # optional, if special form elements are needed
+    "unfold.contrib.inlines",  # optional, if special inlines are needed
+    "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    "unfold.contrib.guardian",  # optional, if django-guardian package is used
+    "unfold.contrib.simple_history",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -43,6 +50,10 @@ INSTALLED_APPS = [
     "users",
     "chat",
     "transactions",
+    "dashboard",
+
+    # 3rd party packages
+    'ckeditor',
     
 ]
 
@@ -150,3 +161,19 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = "users.Users"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'width': '100%',
+        'height': '400px',
+        # 'toolbar_Custom': [
+        #     ['Bold', 'Italic', 'Underline'],
+        #     ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+        #     ['Link', 'Unlink'],
+        #     ['RemoveFormat', 'Source']
+        # ]
+    }
+}
+
+# from ckeditor.fields import RichTextField
