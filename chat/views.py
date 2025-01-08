@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-
+import openai
+from django.conf import settings
 
 class ConversationList(APIView):
     permission_classes = [IsAuthenticated]
@@ -22,6 +23,36 @@ class ConversationList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+class ChatGPTService:
+    @staticmethod
+    def ask_gpt(prompt: str) -> str:
+        openai.api_key = settings.OPENAI_API_KEY
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",  # You can also use "gpt-4" if you have access
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=200,
+                temperature=0.7,
+            )
+            return response['choices'][0]['message']['content']
+        except openai.error.OpenAIError as e:
+            return str(e)
+        
+
+class ChatGPTView(APIView):
+    def post(self, request):
+        prompt = request.data.get('prompt', '')
+        if not prompt:
+            return Response({"error": "Prompt is required"}, status=status.HTTP_400_BAD_REQUEST)
+        response = ChatGPTService.ask_gpt(prompt)
+        return Response({"response": response}, status=status.HTTP_200_OK)
+
+
+
+
 
 
 
@@ -40,10 +71,16 @@ class MessageList(APIView):
 
     def post(self, request, pk, format=None):
         conversation = Conversation.objects.get(pk=pk)
-        print("dfgdkf",conversation)
+
+        prompt = request.data.get('question', '')
+        response = ChatGPTService.ask_gpt(prompt)
+        print(response)
+        if not prompt:
+            return Response({"error": "Prompt is required"}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(conversation=conversation)
+            serializer.save(conversation=conversation, answer = response)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
