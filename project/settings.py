@@ -177,3 +177,7 @@ CKEDITOR_CONFIGS = {
 }
 
 # from ckeditor.fields import RichTextField
+
+
+# for openai 
+OPENAI_API_KEY = "sk-svcacct-YUjXEm7DpgAQJ7RdHv0yjZceaX4iDRVI7_Sv2RpdLTFc3TXN-0_SyWdr4R-me5-Y5T3BlbkFJFO0WIHdplk8hGTYStKReXCK7xW8jfWoGKrAjUfZ3M2BtkPoI4IYITFctNThOD8KAA"
