@@ -6,6 +6,7 @@ class MessageSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Message
+        read_only_fields = ['answer']
         fields = ['id', 'question', 'answer']
 
 
