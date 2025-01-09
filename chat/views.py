@@ -40,17 +40,6 @@ class ChatGPTService:
             return response['choices'][0]['message']['content']
         except openai.error.OpenAIError as e:
             return str(e)
-        
-
-class ChatGPTView(APIView):
-    def post(self, request):
-        prompt = request.data.get('prompt', '')
-        if not prompt:
-            return Response({"error": "Prompt is required"}, status=status.HTTP_400_BAD_REQUEST)
-        response = ChatGPTService.ask_gpt(prompt)
-        return Response({"response": response}, status=status.HTTP_200_OK)
-
-
 
 
 
@@ -74,7 +63,6 @@ class MessageList(APIView):
 
         prompt = request.data.get('question', '')
         response = ChatGPTService.ask_gpt(prompt)
-        print(response)
         if not prompt:
             return Response({"error": "Prompt is required"}, status=status.HTTP_400_BAD_REQUEST)
 
