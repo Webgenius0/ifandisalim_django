@@ -28,5 +28,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
     def generate_otp(self):
         import random
         self.otp_code = f"{random.randint(100000, 999999)}"
-        self.otp_expiry = now() + timedelta(minutes=10)  # OTP expires in 10 minutes
+        self.otp_expiry = now() + timedelta(minutes=10)
         self.save()
+        
+
+

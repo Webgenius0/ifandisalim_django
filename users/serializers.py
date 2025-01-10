@@ -2,7 +2,7 @@ from .models import Users
 from rest_framework import fields, serializers
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
-
+from django.utils.timezone import now, timedelta
 
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
