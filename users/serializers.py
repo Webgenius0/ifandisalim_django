@@ -25,6 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         # fields = ["id", "email", "is_staff", "is_superuser"]
+        # fields = ["id", "email"]
         fields = "__all__"
 
 

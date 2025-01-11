@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .serializers import SignupSerializer, ChangePasswordSerializer, RequestOTPSerializer, VerifyOTPAndChangePasswordSerializer
-
+from .serializers import SignupSerializer, ChangePasswordSerializer, RequestOTPSerializer, VerifyOTPAndChangePasswordSerializer, UserSerializer
+from django.http import Http404
 # for reset password
 from django.core.mail import send_mail
 from django.conf import settings
@@ -30,6 +30,35 @@ class SignupAPIView(APIView):
             raise ValidationError({'password_mismatch': 'Password fields didn not match.'})
         return Response(data, status=response)
     
+
+
+class UserProfileList(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+        users = Users.objects.filter(email=request.user.email)
+        serializer = UserSerializer(users, many=True)
+        response_data = {
+            "status": status.HTTP_200_OK,
+            "success": True,
+            "message": "User profile retrieved successfully",
+            "data": serializer.data
+        }
+        return Response(response_data)
+        
+
+
+# class UserProfileDetail(APIView):
+#     permission_classes = [IsAuthenticated]
+#     def get_object(self, pk):
+#         try:
+#             return Users.objects.get(pk=pk)
+#         except Users.DoesNotExist:
+#             raise Http404
+
+#     def get(self, request, pk, format=None):
+#         users = self.get_object(pk)
+#         serializer = UserSerializer(users)
+#         return Response(serializer.data)
 
 
 

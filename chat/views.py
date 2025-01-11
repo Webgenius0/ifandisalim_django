@@ -13,16 +13,34 @@ class ConversationList(APIView):
     def get(self, request, format=None):
         conversation = Conversation.objects.filter(user=request.user)
         serializer = ConversationSerializer(conversation, many=True)
-        return Response(serializer.data)
+        response_data = {
+            "status": status.HTTP_200_OK,
+            "success": True,
+            "message": "Conversations retrieved successfully!",
+            "data": serializer.data
+        }
+        return Response(response_data)
 
     def post(self, request, format=None):
         serializer = ConversationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            response_data = {
+                "status": status.HTTP_201_CREATED,
+                "success": True,
+                "message": "Conversation created successfully!",
+                "data": serializer.data
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+
+
+
+
+
 class ChatGPTService:
     @staticmethod
     def ask_gpt(prompt: str) -> str:
@@ -44,19 +62,19 @@ class ChatGPTService:
 
 
 
-
-
-
-
-
-
 class MessageList(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         message = Message.objects.filter(user=request.user)
         serializer = MessageSerializer(message, many=True)
-        return Response(serializer.data)
+        response_data = {
+            "status": status.HTTP_200_OK,
+            "success": True,
+            "message": "Messages retrieved successfully!",
+            "data": serializer.data
+        }
+        return Response(response_data)
 
     def post(self, request, pk, format=None):
         conversation = Conversation.objects.get(pk=pk)
@@ -70,5 +88,12 @@ class MessageList(APIView):
         if serializer.is_valid():
             serializer.save(conversation=conversation, answer = response)
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            response_data = {
+                "status": status.HTTP_201_CREATED,
+                "success": True,
+                "message": "Message created successfully!",
+                "data": serializer.data
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
