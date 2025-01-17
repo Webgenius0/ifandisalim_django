@@ -65,7 +65,16 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # for routs reordering
+    # 'modeladmin_reorder.middleware.ModelAdminReorder',
 ]
+
+# MODELADMIN_REORDER = [
+#     # Move Users to the top
+#     {'app': 'users', 'models': ['users.Users']},
+#     # {'app': 'dashboard', 'models': ['dashboard.Contact', 'dashboard.Faqs']},
+#     # {'app': 'transactions', 'models': ['transactions.CreditWallet', 'transactions.Whitelist']},
+# ]
 
 ROOT_URLCONF = "project.urls"
 
@@ -181,3 +190,13 @@ CKEDITOR_CONFIGS = {
 
 # for openai 
 OPENAI_API_KEY = "sk-svcacct-YUjXEm7DpgAQJ7RdHv0yjZceaX4iDRVI7_Sv2RpdLTFc3TXN-0_SyWdr4R-me5-Y5T3BlbkFJFO0WIHdplk8hGTYStKReXCK7xW8jfWoGKrAjUfZ3M2BtkPoI4IYITFctNThOD8KAA"
+
+
+
+# email info
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "mainbsl4@gmail.com"
+EMAIL_HOST_PASSWORD = "nmwk umma atdu sosv"
+EMAIL_PORT = 465  # SMTP port
+EMAIL_USE_SSL = True  # Use SSL for secure connection

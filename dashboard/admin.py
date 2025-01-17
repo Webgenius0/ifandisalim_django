@@ -11,7 +11,7 @@ class FAQAdmin(ModelAdmin):
 
 @admin.register(ContactUs)
 class ContactUsAdmin(ModelAdmin):
-    pass 
+    list_display = ('email', 'message')
 
 @admin.register(StaticPages)
 class StaticPagesAdmin(ModelAdmin):
