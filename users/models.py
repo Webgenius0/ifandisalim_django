@@ -31,5 +31,6 @@ class Users(AbstractBaseUser, PermissionsMixin):
         self.otp_expiry = now() + timedelta(minutes=10)
         self.save()
         
-
-
+    class Meta:
+        verbose_name = 'Users'
+        verbose_name_plural = 'Users'
