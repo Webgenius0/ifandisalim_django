@@ -65,7 +65,16 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # for routs reordering
+    # 'modeladmin_reorder.middleware.ModelAdminReorder',
 ]
+
+# MODELADMIN_REORDER = [
+#     # Move Users to the top
+#     {'app': 'users', 'models': ['users.Users']},
+#     # {'app': 'dashboard', 'models': ['dashboard.Contact', 'dashboard.Faqs']},
+#     # {'app': 'transactions', 'models': ['transactions.CreditWallet', 'transactions.Whitelist']},
+# ]
 
 ROOT_URLCONF = "project.urls"
 
