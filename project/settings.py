@@ -27,8 +27,8 @@ SECRET_KEY = "django-insecure-hdtd5+d%^cl0*^#fa%m3&8f=*-ghdn0d03_=sdby35&i2a4=wh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['ifandisalim-django.onrender.com']
+ALLOWED_HOSTS = ['ifandisalim-django.onrender.com', '*']
+# ALLOWED_HOSTS = ['ifandisalim-django.onrender.com']
 
 
 
